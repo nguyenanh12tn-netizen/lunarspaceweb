@@ -1,6 +1,7 @@
 import ModeSwitch from '@/components/ModeSwitch'
 import PointerGlow from '@/components/PointerGlow'
 import Reveal from '@/components/Reveal'
+import ShotGallery from '@/components/ShotGallery'
 import Wordmark from '@/components/Wordmark'
 import DownloadPanel from '@/components/DownloadPanel'
 import { formatBytes, formatDay } from '@/lib/format'
@@ -60,12 +61,86 @@ const FEATURES = [
 ]
 
 const SHOTS = [
-  { src: '/shots/home.png', caption: 'Trang chủ — chọn phiên bản và vào game', alt: 'Trang chủ launcher với danh sách bản phát hành và phiên bản đã tạo' },
-  { src: '/shots/modpack.png', caption: 'Modpack — lọc theo phiên bản, loader, thẻ', alt: 'Trang Modpack với bộ lọc phiên bản game, loader, thẻ và môi trường' },
-  { src: '/shots/mod_install.png', caption: 'Tải mod — nhãn máy khách / máy chủ', alt: 'Danh sách mod trên Modrinth với nhãn môi trường chạy' },
-  { src: '/shots/mod_install2.png', caption: 'Chi tiết dự án — hỗ trợ máy khách, máy chủ', alt: 'Trang chi tiết mod với thông tin tương thích' },
-  { src: '/shots/account.png', caption: 'Tài khoản — Microsoft, ely.by, offline', alt: 'Trang tài khoản với danh sách tài khoản đã thêm' },
-  { src: '/shots/host.png', caption: 'Host — chia sẻ world qua internet', alt: 'Trang Host với dải trạng thái và địa chỉ chia sẻ' },
+  {
+    src: '/shots/home.png',
+    title: 'Trang chủ',
+    eyebrow: 'Sẵn sàng chơi',
+    desc: 'Phiên bản đang chọn nằm ngay trên cùng: bấm Play là vào game. Bên dưới là bản phát hành mới nhất kèm tình trạng hỗ trợ của từng loader.',
+    tags: ['Play', 'Bản phát hành'],
+    alt: 'Trang chủ launcher với danh sách bản phát hành và phiên bản đã tạo',
+  },
+  {
+    src: '/shots/modpack.png',
+    title: 'Tìm modpack',
+    eyebrow: '18.000 gói',
+    desc: 'Lọc gói từ Modrinth và CurseForge theo phiên bản game, loader, thẻ và môi trường chạy. Chọn gói rồi để launcher tải mod, tài nguyên và overrides.',
+    tags: ['Modrinth', 'CurseForge', 'Bộ lọc'],
+    alt: 'Trang Modpack với bộ lọc phiên bản game, loader, thẻ và môi trường',
+  },
+  {
+    src: '/shots/modpack_detail.png',
+    title: 'Chi tiết modpack',
+    eyebrow: 'Trước khi cài',
+    desc: 'Xem mô tả, bản phát hành, nhật ký thay đổi và thư viện ảnh. Bảng tương thích cho biết gói chạy trên phiên bản Minecraft và loader nào.',
+    tags: ['Tương thích', 'Bản phát hành'],
+    alt: 'Trang chi tiết modpack với thông tin tương thích và các tab',
+  },
+  {
+    src: '/shots/mod_install.png',
+    title: 'Tải mod trong phiên bản',
+    eyebrow: 'Đúng loader',
+    desc: 'Launcher chỉ hiện bản dùng được cho phiên bản đang chọn. Nhãn máy khách / máy chủ cho biết mod cần cài ở phía nào.',
+    tags: ['Nhãn môi trường'],
+    alt: 'Danh sách mod tải về với nhãn môi trường chạy',
+  },
+  {
+    src: '/shots/mod_install2.png',
+    title: 'Chi tiết dự án',
+    eyebrow: 'Đủ thông tin',
+    desc: 'Mô tả đầy đủ, phiên bản game hỗ trợ, loader và kết luận rõ ràng: mod này bắt buộc ở máy khách và không hỗ trợ máy chủ.',
+    tags: ['Thông tin', 'Hỗ trợ'],
+    alt: 'Trang chi tiết mod với bảng tương thích máy khách và máy chủ',
+  },
+  {
+    src: '/shots/mods_list.png',
+    title: 'Mod đã cài',
+    eyebrow: 'Một cái nhìn',
+    desc: 'Cột loại và trạng thái tách riêng nên nhìn một lượt là biết mod nào chạy ở đâu và mod nào đang tắt. Bật, tắt hay xoá đều ngay trong danh sách.',
+    tags: ['Loại', 'Bật / tắt'],
+    alt: 'Danh sách mod đã cài với cột loại và trạng thái',
+  },
+  {
+    src: '/shots/account.png',
+    title: 'Tài khoản',
+    eyebrow: 'Đăng nhập',
+    desc: 'Microsoft, ely.by hoặc chơi offline. Token lưu trên máy và tự gia hạn, mỗi tài khoản có đầu skin riêng, đổi tài khoản ngay trên sidebar.',
+    tags: ['Microsoft', 'ely.by', 'Offline'],
+    alt: 'Trang tài khoản với danh sách tài khoản đã thêm',
+  },
+  {
+    src: '/shots/host.png',
+    title: 'Host',
+    eyebrow: 'Chia sẻ world',
+    desc: 'Mở world trong game rồi bật đường truyền: launcher đọc cổng LAN từ log, giữ cổng cố định và đưa ra địa chỉ công khai để gửi bạn bè.',
+    tags: ['Chia sẻ world', 'Không cần mở cổng router'],
+    alt: 'Trang Host với dải trạng thái và địa chỉ chia sẻ',
+  },
+  {
+    src: '/shots/versions.png',
+    title: 'Phiên bản',
+    eyebrow: 'Tạo mới',
+    desc: 'Chọn bản Minecraft và build loader, hoặc nhập lại tệp profile đã xuất trước đó để dựng phiên bản mới mà không phải cấu hình lại.',
+    tags: ['Tạo phiên bản', 'Nhập profile'],
+    alt: 'Trang Phiên bản với danh sách bản phát hành và form tạo phiên bản',
+  },
+  {
+    src: '/shots/settings.png',
+    title: 'Cài đặt phiên bản',
+    eyebrow: 'Tinh chỉnh',
+    desc: 'RAM, tham số JVM, tài khoản dùng khi chơi, xuất profile. Bật bó cờ tăng FPS hoặc cài mod tăng FPS ngay trong màn hình này.',
+    tags: ['Cấu hình', 'Tăng FPS'],
+    alt: 'Trang cài đặt phiên bản với RAM, JVM và tuỳ chọn tăng FPS',
+  },
 ]
 
 async function getRelease() {
@@ -225,16 +300,11 @@ export default async function Page() {
             <SectionHead
               eyebrow="Ảnh chụp"
               title="Giao diện thật, không phải bản mô phỏng"
-              lead="Toàn bộ ảnh dưới đây chụp từ launcher đang chạy, ở cả hai kiểu giao diện."
+              lead="Mười ảnh chụp từ launcher đang chạy, ở skin pixel. Kéo ngang hoặc dùng nút để xem từng màn hình."
             />
-            <div className="gallery">
-              {SHOTS.map((shot, i) => (
-                <Reveal key={shot.src} delay={70 * i} className="shot-item">
-                  <img className="shot" src={shot.src} alt={shot.alt} width="1145" height="720" loading="lazy" />
-                  <p className="mono shot-cap">{shot.caption}</p>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal>
+              <ShotGallery shots={SHOTS} />
+            </Reveal>
           </div>
         </section>
 

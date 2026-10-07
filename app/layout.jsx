@@ -1,12 +1,5 @@
-import { Be_Vietnam_Pro, IBM_Plex_Mono, VT323 } from 'next/font/google'
+import { IBM_Plex_Mono, VT323 } from 'next/font/google'
 import './globals.css'
-
-const body = Be_Vietnam_Pro({
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-body',
-})
 
 const pixel = VT323({
   subsets: ['latin', 'vietnamese'],
@@ -35,15 +28,15 @@ export const metadata = {
 }
 
 const BOOT = `(function(){try{
-var t=localStorage.getItem('ls-theme');var s=localStorage.getItem('ls-skin');
+var t=localStorage.getItem('ls-theme');
 var m=window.matchMedia('(prefers-color-scheme: light)').matches;
 document.documentElement.setAttribute('data-theme', t==='light'||t==='dark'?t:(m?'light':'dark'));
-document.documentElement.setAttribute('data-skin', s==='pixel'?'pixel':'default');
+document.documentElement.setAttribute('data-skin','pixel');
 }catch(e){}})()`
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" suppressHydrationWarning className={`${body.variable} ${pixel.variable} ${mono.variable}`}>
+    <html lang="vi" data-skin="pixel" suppressHydrationWarning className={`${pixel.variable} ${mono.variable}`}>
       <head>
         <link rel="icon" href="/icon.png" />
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
