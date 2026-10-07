@@ -143,7 +143,7 @@ export default function ShotGallery({ shots = [] }) {
           aria-label="Ảnh chụp giao diện"
         >
           {shots.map((item, index) => (
-            <figure className={`slide${index === active ? ' is-active' : ''}`} key={item.src}>
+            <figure className={`slide${index === active ? ' is-active' : ''}`} key={item.src} style={{ '--i': index }}>
               <img
                 className="slide-img"
                 src={item.src}

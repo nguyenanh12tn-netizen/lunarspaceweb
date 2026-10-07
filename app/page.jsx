@@ -1,6 +1,7 @@
 import ModeSwitch from '@/components/ModeSwitch'
 import PointerGlow from '@/components/PointerGlow'
 import Reveal from '@/components/Reveal'
+import ScrollProgress from '@/components/ScrollProgress'
 import ShotGallery from '@/components/ShotGallery'
 import Wordmark from '@/components/Wordmark'
 import DownloadPanel from '@/components/DownloadPanel'
@@ -191,14 +192,15 @@ export default async function Page() {
   return (
     <>
       <PointerGlow />
+      <ScrollProgress />
 
       <header className="nav">
         <div className="shell nav-inner">
-          <a href="#top" className="brand">
+          <a href="#top" className="brand enter-drop" style={{ '--d': '60ms' }}>
             <span className="brand-mark" aria-hidden="true" />
             <span className="brand-name">LunarSpace</span>
           </a>
-          <nav className="nav-links" aria-label="Mục chính">
+          <nav className="nav-links enter-drop" style={{ '--d': '160ms' }} aria-label="Mục chính">
             <a href="#features">Tính năng</a>
             <a href="#shots">Ảnh chụp</a>
             <a href="#get">Tải về</a>
@@ -213,28 +215,28 @@ export default async function Page() {
           <div className="glow glow-a" aria-hidden="true" />
           <div className="glow glow-b" aria-hidden="true" />
           <div className="shell hero-inner">
-            <p className="eyebrow">Trình khởi chạy Minecraft</p>
+            <p className="eyebrow enter-fade" style={{ '--d': '80ms' }}>Trình khởi chạy Minecraft</p>
 
             <Wordmark />
 
-            <h1 className="h1">
+            <h1 className="h1 enter" style={{ '--d': '620ms' }}>
               Cài modpack, đăng nhập, và mở world cho bạn bè — gói gọn trong một launcher.
             </h1>
 
-            <p className="lead hero-lead">
+            <p className="lead hero-lead enter" style={{ '--d': '740ms' }}>
               Dành cho người chơi Minecraft Java ở Việt Nam: kéo gói mod về là chạy, tài khoản Microsoft hoặc ely.by tự gia hạn,
               và mời bạn bè vào world mà không cần mở cổng router.
             </p>
 
             <div className="hero-cta">
-              <a className="btn btn-accent" href={release?.win?.url || LATEST} download={release?.win ? '' : undefined}>
+              <a className="btn btn-accent" style={{ '--i': 0 }} href={release?.win?.url || LATEST} download={release?.win ? '' : undefined}>
                 Tải cho Windows
                 <span aria-hidden="true">↓</span>
               </a>
-              <a className="btn" href={release?.linux?.url || LATEST} download={release?.linux ? '' : undefined}>
+              <a className="btn" style={{ '--i': 1 }} href={release?.linux?.url || LATEST} download={release?.linux ? '' : undefined}>
                 Bản Linux (.AppImage)
               </a>
-              <a className="btn btn-quiet" href={REPO} target="_blank" rel="noreferrer">Xem mã nguồn</a>
+              <a className="btn btn-quiet" style={{ '--i': 2 }} href={REPO} target="_blank" rel="noreferrer">Xem mã nguồn</a>
             </div>
 
             <p className="mono hero-meta">{meta}<span className="caret" aria-hidden="true" /></p>
@@ -273,8 +275,8 @@ export default async function Page() {
                   <h3 className="h3" style={{ margin: '0 0 10px' }}>{feature.title}</h3>
                   <p className="body" style={{ margin: '0 0 14px' }}>{feature.body}</p>
                   <ul className="ticks">
-                    {feature.list.map((item) => (
-                      <li key={item}>{item}</li>
+                    {feature.list.map((item, idx) => (
+                      <li key={item} style={{ '--i': idx }}>{item}</li>
                     ))}
                   </ul>
                 </Reveal>
@@ -284,8 +286,8 @@ export default async function Page() {
                   'Miễn phí, mã nguồn mở trên GitHub',
                   'Không quảng cáo, không telemetry',
                   'Tự kiểm tra bản mới và tự cài khi thoát',
-                ].map((item) => (
-                  <span className="strip-item" key={item}>
+                ].map((item, idx) => (
+                  <span className="strip-item" key={item} style={{ '--i': idx }}>
                     <span className="dot" aria-hidden="true" />
                     {item}
                   </span>
