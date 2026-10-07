@@ -46,29 +46,27 @@ export default function DownloadPanel({ release, fallbackUrl }) {
           })}
         </div>
         {release?.version && (
-          <span className="mono" style={{ fontSize: 13, color: 'var(--faint)' }}>
-            phiên bản {release.version}
-            {release.published ? ` · ${formatDay(release.published)}` : ''}
-            {target?.size ? ` · ${formatBytes(target.size)}` : ''}
+          <span className="dl-meta">
+            <span className="chip">v{release.version}</span>
+            {target?.size ? <span className="chip">{formatBytes(target.size)}</span> : null}
+            {release.published ? <span className="chip">{formatDay(release.published)}</span> : null}
           </span>
         )}
       </div>
 
-      <p style={{ margin: 0, color: 'var(--label)', fontSize: 15 }}>{OS_HINT[os]}</p>
+      <p className="hint" style={{ margin: 0 }}>{OS_HINT[os]}</p>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
-        <a className="btn btn-accent" href={url} download>
+        <a className="btn btn-accent btn-lg" href={url} download>
           Tải {os === 'win' ? 'cho Windows' : 'bản Linux'}
           <span aria-hidden="true">↓</span>
         </a>
-        <a className="btn" href={fallbackUrl} target="_blank" rel="noreferrer">
+        <a className="btn btn-lg" href={fallbackUrl} target="_blank" rel="noreferrer">
           Tất cả bản phát hành
         </a>
       </div>
 
-      <p className="mono" style={{ margin: 0, fontSize: 12, color: 'var(--faint)', wordBreak: 'break-all' }}>
-        {fileName}
-      </p>
+      <p className="dl-file" style={{ margin: 0 }}>{fileName}</p>
     </div>
   )
 }

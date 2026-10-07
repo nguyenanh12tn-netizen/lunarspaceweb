@@ -23,9 +23,18 @@ const LOADERS = [
   { id: 'technic', name: 'Technic' },
 ]
 
+const ICONS = {
+  cube: 'M12 2 3 7v10l9 5 9-5V7l-9-5z M3 7l9 5 9-5 M12 22V12',
+  user: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8z',
+  cloud: 'M7 18h10a4 4 0 0 0 .6-7.96A6 6 0 0 0 6 11a4 4 0 0 0 1 7z',
+  download: 'M12 3v12 M7 11l5 5 5-5 M4 21h16',
+  grid: 'M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z',
+}
+
 const FEATURES = [
   {
     span: 3,
+    icon: 'cube',
     eyebrow: 'MODPACK',
     title: 'Cài modpack bằng một nút',
     body: 'Tìm trên Modrinth hoặc CurseForge, chọn bản phát hành, rồi để launcher tải mod, tài nguyên và overrides — tự tạo phiên bản chạy được ngay.',
@@ -33,6 +42,7 @@ const FEATURES = [
   },
   {
     span: 3,
+    icon: 'user',
     eyebrow: 'TÀI KHOẢN',
     title: 'Microsoft, ely.by, hoặc chơi offline',
     body: 'Đăng nhập bằng tài khoản Microsoft hoặc ely.by; token tự gia hạn khi hết hạn nên không phải đăng nhập lại. Mỗi tài khoản có đầu skin riêng.',
@@ -40,6 +50,7 @@ const FEATURES = [
   },
   {
     span: 2,
+    icon: 'cloud',
     eyebrow: 'HOST',
     title: 'Mở world cho bạn bè',
     body: 'Mở world trong game, launcher đọc cổng LAN từ log rồi đưa ra địa chỉ công khai để bạn bè nhập vào Minecraft.',
@@ -47,6 +58,7 @@ const FEATURES = [
   },
   {
     span: 2,
+    icon: 'download',
     eyebrow: 'NỘI DUNG',
     title: 'Tải mod, shader, resource pack',
     body: 'Duyệt và cài ngay trong phiên bản: lọc theo loader, phiên bản game, thẻ, và biết mod chạy ở máy khách hay máy chủ.',
@@ -54,6 +66,7 @@ const FEATURES = [
   },
   {
     span: 2,
+    icon: 'grid',
     eyebrow: 'GIAO DIỆN',
     title: 'Skin pixel 8-bit',
     body: 'Đổi giữa giao diện phẳng và skin pixel: chữ VT323, viền dày, bóng cứng. Có cả bản sáng và tối.',
@@ -62,14 +75,6 @@ const FEATURES = [
 ]
 
 const SHOTS = [
-  {
-    src: '/shots/home.png',
-    title: 'Trang chủ',
-    eyebrow: 'Sẵn sàng chơi',
-    desc: 'Phiên bản đang chọn nằm ngay trên cùng: bấm Play là vào game. Bên dưới là bản phát hành mới nhất kèm tình trạng hỗ trợ của từng loader.',
-    tags: ['Play', 'Bản phát hành'],
-    alt: 'Trang chủ launcher với danh sách bản phát hành và phiên bản đã tạo',
-  },
   {
     src: '/shots/modpack.png',
     title: 'Tìm modpack',
@@ -197,7 +202,7 @@ export default async function Page() {
       <header className="nav">
         <div className="shell nav-inner">
           <a href="#top" className="brand enter-drop" style={{ '--d': '60ms' }}>
-            <span className="brand-mark" aria-hidden="true" />
+            <img className="brand-mark" src="/logo.png" alt="" width="30" height="30" />
             <span className="brand-name">LunarSpace</span>
           </a>
           <nav className="nav-links enter-drop" style={{ '--d': '160ms' }} aria-label="Mục chính">
@@ -245,6 +250,17 @@ export default async function Page() {
               <div className="sweep" aria-hidden="true" />
             </div>
 
+            <div className="hero-shot-wrap">
+              <span className="hero-shot-glow" aria-hidden="true" />
+              <div className="hero-shot-bar">
+                <span className="hero-shot-dot is-accent" />
+                <span className="hero-shot-dot" />
+                <span className="hero-shot-dot" />
+                <span className="hero-shot-title">LunarSpace Launcher · trang chủ</span>
+              </div>
+              <img className="hero-shot" src="/shots/home.png" alt="Trang chủ của LunarSpace Launcher" width="1145" height="720" />
+            </div>
+
             <div className="marquee-wrap">
               <p className="eyebrow" style={{ margin: '0 0 14px' }}>Chạy được với</p>
               <div className="marquee">
@@ -270,8 +286,13 @@ export default async function Page() {
             />
             <div className="bento">
               {FEATURES.map((feature, i) => (
-                <Reveal key={feature.title} delay={60 * i} className={`card card-hover feat span-${feature.span}`}>
-                  <p className="eyebrow" style={{ margin: '0 0 12px' }}>{feature.eyebrow}</p>
+                <Reveal key={feature.title} delay={70 * i} className={`card card-hover feat span-${feature.span}`}>
+                  <span className="feat-icon" aria-hidden="true">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={ICONS[feature.icon]} />
+                    </svg>
+                  </span>
+                  <p className="eyebrow">{feature.eyebrow}</p>
                   <h3 className="h3" style={{ margin: '0 0 10px' }}>{feature.title}</h3>
                   <p className="body" style={{ margin: '0 0 14px' }}>{feature.body}</p>
                   <ul className="ticks">
@@ -302,7 +323,7 @@ export default async function Page() {
             <SectionHead
               eyebrow="Ảnh chụp"
               title="Giao diện thật, không phải bản mô phỏng"
-              lead="Mười ảnh chụp từ launcher đang chạy, ở skin pixel. Kéo ngang hoặc dùng nút để xem từng màn hình."
+              lead="Chín ảnh chụp từ launcher đang chạy. Kéo ngang, dùng nút mũi tên hoặc bấm chấm để xem từng màn hình."
             />
             <Reveal>
               <ShotGallery shots={SHOTS} />
@@ -335,7 +356,10 @@ export default async function Page() {
       <footer className="foot">
         <div className="shell foot-inner">
           <div>
-            <p className="mono" style={{ margin: '0 0 6px', fontSize: 13, color: 'var(--label)' }}>LunarSpace Launcher</p>
+            <div className="foot-brand">
+              <img className="foot-mark" src="/logo.png" alt="" width="26" height="26" />
+              <p className="mono" style={{ margin: 0, fontSize: 14, color: 'var(--text)' }}>LunarSpace Launcher</p>
+            </div>
             <p className="mono" style={{ margin: 0, fontSize: 12, color: 'var(--faint)' }}>
               Làm bởi foxstudio-201 · Không liên kết với Mojang hay Microsoft
             </p>
